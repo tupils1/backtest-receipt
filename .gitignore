@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.venv/
+venv/
+
+# Holdout keys are secrets. Sealed ciphertext may be committed; the key must not.
+*.key
+holdout.key
+
+# Local demo output
+examples/output/

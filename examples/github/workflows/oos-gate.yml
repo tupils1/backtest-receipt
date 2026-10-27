@@ -1,0 +1,23 @@
+# Example gate. Copy this file to .github/workflows/oos-gate.yml in the
+# repository that commits a study receipt. It does not run in this library's
+# own CI, because this library does not publish a passing receipt as its product.
+#
+# Until the package is on PyPI, install it from git. Do not commit holdout.key.
+
+name: oos-gate
+
+on:
+  pull_request:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install backtest-receipt
+        run: python -m pip install "git+https://github.com/tupils1/backtest-receipt.git"
+      - name: Reject a failing or tampered receipt
+        run: backtest-receipt check receipt.json --study studies/current
